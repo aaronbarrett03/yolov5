@@ -1,6 +1,6 @@
 # Ultralytics YOLOv5 🚀, AGPL-3.0 license
 """
-Export a YOLOv5 PyTorch model to other formats. TensorFlow exports authored by https://github.com/zldrobit
+Export a YOLOv5 PyTorch model to other formats. TensorFlow exports authored by https://github.com/zldrobit.
 
 Format                      | `export.py --include`         | Model
 ---                         | ---                           | ---
@@ -91,6 +91,8 @@ MACOS = platform.system() == "Darwin"  # macOS environment
 
 
 class iOSModel(torch.nn.Module):
+    """An iOS-compatible wrapper for YOLOv5 models that normalizes input images based on their dimensions."""
+
     def __init__(self, model, im):
         """
         Initializes an iOS compatible model with normalization based on image dimensions.
@@ -141,7 +143,7 @@ class iOSModel(torch.nn.Module):
 
 
 def export_formats():
-    """
+    r"""
     Returns a DataFrame of supported YOLOv5 model export formats and their properties.
 
     Returns:
@@ -449,8 +451,10 @@ def export_openvino(file, metadata, half, int8, data, prefix=colorstr("OpenVINO:
             Quantization transform function.
 
             Extracts and preprocess input data from dataloader item for quantization.
-            Parameters:
+
+            Args:
                data_item: Tuple with data item produced by DataLoader during iteration
+
             Returns:
                 input_tensor: Input data for quantization
             """
